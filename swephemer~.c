@@ -31,6 +31,7 @@ void *swephemer_tilde_new(t_symbol *s, int argc, t_atom *argv)
         swe_set_ephe_path(NULL); // tell Pd to look for ephemera files in same dir as this external
         char *svers = malloc(1024);
         swe_version(svers);
+        post ("swephemer~ v0.5-alpha2");
         post ("Swiss Ephemeris version %s", svers);
         unsigned short i;
         char snam[40];
@@ -44,7 +45,7 @@ void *swephemer_tilde_new(t_symbol *s, int argc, t_atom *argv)
                         post ("Celestial body: %s", snam);
                         break;
                 case A_SYMBOL:
-                        error("Ignoring %s", argv[i].a_w.w_symbol->s_name);
+                        //error("Ignoring %s", argv[i].a_w.w_symbol->s_name);
                         break;
                 default:
                         error("Got something unexpected...");
@@ -152,7 +153,7 @@ void swephemer_tilde_bang(t_swephemer_tilde *x)
 void swephemer_tilde_float(t_swephemer_tilde *x, t_float f)
 {
         x->x_jul_date += f;
-        post ("Received adjustment value %+g. New date is %10.4f", f, x->x_jul_date);
+        //post ("Received adjustment value %+g. New date is %10.4f", f, x->x_jul_date);
         swephemer_tilde_bang(x);
 }
 
@@ -253,6 +254,7 @@ void swephemer_tilde_iflag(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom
                         {
                                 x->x_iflag = 0;
                                 post ("resetting iflags");
+                                break;
                         }
                         if (argv[i].a_w.w_symbol == gensym("JPLEPH"))
                         {
@@ -368,21 +370,6 @@ void swephemer_tilde_iflag(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom
                         break;
                 default:
                         error ("unrecognized type for -iflag");
-                        /*
-                                switch(argv[i].a_w.w_symbol)
-                                {
-                                case gensym("JPLEPH"):
-                                        x->x_iflag += SEFLG_JPLEPH;
-                                        post ("adding JPLEPH flag");
-                                        break;
-                                case gensym("HELCTR"):
-                                        x->x_iflag += SEFLG_HELCTR;
-                                        post ("adding HELCTR flag");
-                                        break;
-                                default:
-                                        error ("unrecognized option to -iflag");
-                                }
-                         */
                 }
         }
 }
