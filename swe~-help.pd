@@ -45,7 +45,7 @@
 #X msg 436 153 -loop "1721027.5" "2458067" 0.5 \, -p 2 \, -audio 1
 ;
 #X msg 284 442 \; pd dsp \$1;
-#X obj 42 151 swephemer~ 5;
+#X obj 42 151 swe~ 5;
 #X msg 428 88 -p 5;
 #X text 434 203 if no end date \, loop will be 365242 days (1000 yrs)
 ;

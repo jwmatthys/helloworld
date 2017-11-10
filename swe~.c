@@ -6,9 +6,9 @@
 #define UNUSED(x) (void)(x)
 typedef enum { false, true } bool;
 
-static t_class *swephemer_tilde_class;
+static t_class *swe_tilde_class;
 
-typedef struct _swephemer_tilde {
+typedef struct _swe_tilde {
         t_object x_obj;
         t_sample x_sample_rate;
         double x_jul_date;
@@ -22,16 +22,16 @@ typedef struct _swephemer_tilde {
         long x_iflag;
         t_outlet* x_longitude_out, *x_latitude_out, *x_distance_out, *x_date_out;
         t_outlet* x_signal_out;
-} t_swephemer_tilde;
+} t_swe_tilde;
 
-void *swephemer_tilde_new(t_symbol *s, int argc, t_atom *argv)
+void *swe_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
         UNUSED(s);
-        t_swephemer_tilde *x = (t_swephemer_tilde *)pd_new(swephemer_tilde_class);
+        t_swe_tilde *x = (t_swe_tilde *)pd_new(swe_tilde_class);
         swe_set_ephe_path(NULL); // tell Pd to look for ephemera files in same dir as this external
         char *svers = malloc(1024);
         swe_version(svers);
-        post ("swephemer~ v0.5-alpha2");
+        post ("swe~ v0.5-alpha2");
         post ("Swiss Ephemeris version %s", svers);
         unsigned short i;
         char snam[40];
@@ -69,7 +69,7 @@ void *swephemer_tilde_new(t_symbol *s, int argc, t_atom *argv)
         return (void *)x;
 }
 
-void swephemer_tilde_free(t_swephemer_tilde *x)
+void swe_tilde_free(t_swe_tilde *x)
 {
         outlet_free(x->x_longitude_out);
         outlet_free(x->x_latitude_out);
@@ -79,9 +79,9 @@ void swephemer_tilde_free(t_swephemer_tilde *x)
         swe_close();
 }
 
-static t_int *swephemer_tilde_perform(t_int *w)
+static t_int *swe_tilde_perform(t_int *w)
 {
-        t_swephemer_tilde *x = (t_swephemer_tilde *)(w[1]);
+        t_swe_tilde *x = (t_swe_tilde *)(w[1]);
         t_sample *out = (t_sample*)(w[2]);
         double x2[6];
         char serr[256];
@@ -107,9 +107,9 @@ static t_int *swephemer_tilde_perform(t_int *w)
         return (w+4);
 }
 
-static void swephemer_tilde_dsp(t_swephemer_tilde *x, t_signal **sp)
+static void swe_tilde_dsp(t_swe_tilde *x, t_signal **sp)
 {
-        dsp_add(swephemer_tilde_perform, 3, x, sp[0]->s_vec, sp[0]->s_n);
+        dsp_add(swe_tilde_perform, 3, x, sp[0]->s_vec, sp[0]->s_n);
 }
 
 double atom2double (t_atom *argv, t_int index)
@@ -135,7 +135,7 @@ double atom2double (t_atom *argv, t_int index)
         return result;
 }
 
-void swephemer_tilde_bang(t_swephemer_tilde *x)
+void swe_tilde_bang(t_swe_tilde *x)
 {
         double x2[6];
         char serr[256];
@@ -150,20 +150,20 @@ void swephemer_tilde_bang(t_swephemer_tilde *x)
         }
 }
 
-void swephemer_tilde_float(t_swephemer_tilde *x, t_float f)
+void swe_tilde_float(t_swe_tilde *x, t_float f)
 {
         x->x_jul_date += f;
         //post ("Received adjustment value %+g. New date is %10.4f", f, x->x_jul_date);
-        swephemer_tilde_bang(x);
+        swe_tilde_bang(x);
 }
 
-void swephemer_tilde_step(t_swephemer_tilde *x, t_float f)
+void swe_tilde_step(t_swe_tilde *x, t_float f)
 {
         x->x_step = f;
         post ("Set step to %g", x->x_step);
 }
 
-void swephemer_tilde_loop(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom *argv)
+void swe_tilde_loop(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
 {
         UNUSED(s);
         switch (argc)
@@ -187,13 +187,13 @@ void swephemer_tilde_loop(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom 
         post ("Looping from %10.2f to %10.2f by %g step", x->x_loop_start, x->x_loop_end, x->x_step);
 }
 
-void swephemer_tilde_loopoff(t_swephemer_tilde *x)
+void swe_tilde_loopoff(t_swe_tilde *x)
 {
         x->x_loop = false;
         post("looping disabled");
 }
 
-void swephemer_tilde_bj(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom *argv)
+void swe_tilde_bj(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
 {
         UNUSED(s);
         UNUSED(argc);
@@ -203,7 +203,7 @@ void swephemer_tilde_bj(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom *a
         outlet_float (x->x_date_out, x->x_jul_date);
 }
 
-void swephemer_tilde_b(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom *argv)
+void swe_tilde_b(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
 {
         UNUSED(s);
         long y = (argc > 0 && argv[0].a_type == A_FLOAT) ? argv[0].a_w.w_float : 0;
@@ -216,14 +216,14 @@ void swephemer_tilde_b(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom *ar
         outlet_float (x->x_date_out, x->x_jul_date);
 }
 
-void swephemer_tilde_path(t_swephemer_tilde *x, t_symbol *s)
+void swe_tilde_path(t_swe_tilde *x, t_symbol *s)
 {
         UNUSED(x);
         swe_set_ephe_path(s->s_name); // tell Pd to look for ephemera files in same dir as this external
         post("Swephemer will look for ephemera files at %s", s->s_name);
 }
 
-void swephemer_tilde_body(t_swephemer_tilde *x, t_float f)
+void swe_tilde_body(t_swe_tilde *x, t_float f)
 {
         x->x_body = (long)f;
         char snam[40];
@@ -231,13 +231,13 @@ void swephemer_tilde_body(t_swephemer_tilde *x, t_float f)
         post ("Celestial body: %s", snam);
 }
 
-void swephemer_tilde_audioflag(t_swephemer_tilde *x, t_float f)
+void swe_tilde_audioflag(t_swe_tilde *x, t_float f)
 {
         int v = (int)f;
         x->x_dsp_flag = (v == 0) ? false : true;
 }
 
-void swephemer_tilde_iflag(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom *argv)
+void swe_tilde_iflag(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
 {
         UNUSED(s);
         x->x_iflag = 0;
@@ -374,22 +374,22 @@ void swephemer_tilde_iflag(t_swephemer_tilde *x, t_symbol *s, short argc, t_atom
         }
 }
 
-void swephemer_tilde_setup(void) {
-        swephemer_tilde_class = class_new(gensym("swephemer~"),
-                                          (t_newmethod)swephemer_tilde_new,
-                                          (t_method)swephemer_tilde_free,
-                                          sizeof(t_swephemer_tilde), 0, A_GIMME, 0);
-        class_addbang(swephemer_tilde_class, swephemer_tilde_bang);
-        class_addfloat(swephemer_tilde_class, swephemer_tilde_float);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_bj, gensym("-bj"), A_GIMME, 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_bj, gensym("-j"), A_GIMME, 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_b, gensym("-b"), A_GIMME, 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_body, gensym("-p"), A_FLOAT, 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_step, gensym("-step"), A_FLOAT, 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_path, gensym("-path"), A_SYMBOL, 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_iflag, gensym("-iflag"), A_GIMME, 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_audioflag, gensym("-audio"), A_FLOAT, 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_loop, gensym("-loop"), A_GIMME, 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_loopoff, gensym("-loopoff"), 0);
-        class_addmethod(swephemer_tilde_class, (t_method)swephemer_tilde_dsp, gensym("dsp"), 0);
+void swe_tilde_setup(void) {
+        swe_tilde_class = class_new(gensym("swe~"),
+                                          (t_newmethod)swe_tilde_new,
+                                          (t_method)swe_tilde_free,
+                                          sizeof(t_swe_tilde), 0, A_GIMME, 0);
+        class_addbang(swe_tilde_class, swe_tilde_bang);
+        class_addfloat(swe_tilde_class, swe_tilde_float);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_bj, gensym("-bj"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_bj, gensym("-j"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_b, gensym("-b"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_body, gensym("-p"), A_FLOAT, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_step, gensym("-step"), A_FLOAT, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_path, gensym("-path"), A_SYMBOL, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_iflag, gensym("-iflag"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_audioflag, gensym("-audio"), A_FLOAT, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_loop, gensym("-loop"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_loopoff, gensym("-loopoff"), 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_dsp, gensym("dsp"), 0);
 }
