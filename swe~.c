@@ -3,6 +3,7 @@
 #include "swephexp.h"   /* this includes  "sweodef.h" */
 #include <regex.h>
 
+#define VERSION "v0.6-beta"
 #define UNUSED(x) (void)(x)
 typedef enum { false, true } bool;
 
@@ -20,7 +21,7 @@ typedef struct _swe_tilde {
         bool x_dsp_flag;
         bool x_loop;
         long x_iflag;
-        t_outlet* x_longitude_out, *x_latitude_out, *x_distance_out, *x_date_out;
+        t_outlet* x_longitude_out, *x_latitude_out, *x_distance_out, *x_date_out, *x_error_out;
         t_outlet* x_signal_out;
 } t_swe_tilde;
 
@@ -31,7 +32,7 @@ void *swe_tilde_new(t_symbol *s, int argc, t_atom *argv)
         swe_set_ephe_path(NULL); // tell Pd to look for ephemera files in same dir as this external
         char *svers = malloc(1024);
         swe_version(svers);
-        post ("swe~ v0.5-alpha2");
+        post ("swe~ %s",VERSION);
         post ("Swiss Ephemeris version %s", svers);
         unsigned short i;
         char snam[40];
@@ -58,7 +59,7 @@ void *swe_tilde_new(t_symbol *s, int argc, t_atom *argv)
         x->x_latitude_out = outlet_new(&x->x_obj, &s_float);
         x->x_distance_out = outlet_new(&x->x_obj, &s_float);
         x->x_date_out = outlet_new(&x->x_obj, &s_float);
-        x->x_body = 0;
+        x->x_error_out = outlet_new(&x->x_obj, &s_bang);
         x->x_iflag = 0;
         x->x_step = 1.0; // one day
         x->x_jul_date = 0;
@@ -75,6 +76,7 @@ void swe_tilde_free(t_swe_tilde *x)
         outlet_free(x->x_latitude_out);
         outlet_free(x->x_distance_out);
         outlet_free(x->x_date_out);
+        outlet_free(x->x_error_out);
         //outlet_free(x->x_signal_out);
         swe_close();
 }
@@ -103,7 +105,12 @@ static t_int *swe_tilde_perform(t_int *w)
                 }
                 *out++ = outval;
         }
-        if (iflgret < 0) error("%s", serr);
+        if (iflgret < 0)
+        {
+                error("%s", serr);
+                outlet_bang (x->x_error_out);
+
+        }
         return (w+4);
 }
 
@@ -140,7 +147,11 @@ void swe_tilde_bang(t_swe_tilde *x)
         double x2[6];
         char serr[256];
         long iflgret = swe_calc(x->x_jul_date, x->x_body, x->x_iflag, x2, serr);
-        if (iflgret < 0) error("%s", serr);
+        if (iflgret < 0)
+        {
+                error("%s", serr);
+                outlet_bang (x->x_error_out);
+        }
         else
         {
                 outlet_float (x->x_longitude_out, x2[0]);
@@ -160,6 +171,7 @@ void swe_tilde_float(t_swe_tilde *x, t_float f)
 void swe_tilde_step(t_swe_tilde *x, t_float f)
 {
         x->x_step = f;
+        if (x->x_step == 0 ) error("step cannot be 0");
         post ("Set step to %g", x->x_step);
 }
 
@@ -170,6 +182,7 @@ void swe_tilde_loop(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
         {
         case 3:
                 x->x_step = (double)argv[2].a_w.w_float;
+                if (x->x_step == 0) x->x_step = 1;
         case 2:
                 x->x_loop_end = atom2double(argv,1);
         case 1:
@@ -212,7 +225,7 @@ void swe_tilde_b(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
         double h = (argc > 3 && argv[3].a_type == A_FLOAT) ? argv[3].a_w.w_float : 0;
         x->x_jul_date = swe_julday(y,m,d,h,SE_GREG_CAL);
         x->x_loop_val = x->x_jul_date;
-        post ("Set %d.%d.%d.%f to Julian date %10.4f", y, m, d, h, x->x_jul_date);
+        post ("Set %d.%d.%d-%f to Julian date %10.4f", y, m, d, h, x->x_jul_date);
         outlet_float (x->x_date_out, x->x_jul_date);
 }
 
@@ -374,11 +387,96 @@ void swe_tilde_iflag(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
         }
 }
 
+void swe_tilde_array (t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
+{
+        UNUSED(s);
+
+        int vecsize;
+        t_garray *garray;
+        t_word *vec;
+//        t_array *array;
+        t_symbol *arrayname;
+        double start = x->x_jul_date;
+        double end = x->x_jul_date + 365.242;
+        double step = x->x_step;
+        int body = (int)x->x_body;
+        int parameter = 0;
+        bool sine = false;
+        if (argc > 1)
+        {
+                start = atom2double(argv,1);
+                end = start + 365.242;
+        }
+        switch (argc) {
+        case 4:
+                if (argv[3].a_w.w_symbol==gensym("lat")) parameter = 1;
+                if (argv[3].a_w.w_symbol==gensym("latitude")) parameter = 1;
+                if (argv[3].a_w.w_symbol==gensym("dist")) parameter = 2;
+                if (argv[3].a_w.w_symbol==gensym("distance")) parameter = 2;
+                if (argv[3].a_w.w_symbol==gensym("sin")) sine = true;
+                if (argv[3].a_w.w_symbol==gensym("sine")) sine = true;
+        case 3:
+                if (argv[2].a_w.w_symbol==gensym("sin") || argv[2].a_w.w_symbol==gensym("sine")) sine = true;
+                else end = atom2double(argv,2);
+        case 2:
+                start = atom2double(argv,1);
+        case 1:
+                arrayname = argv[0].a_w.w_symbol;
+                if (!(garray = (t_garray *)pd_findbyclass(arrayname,garray_class)))
+                {
+                        error ("%s: no such array",arrayname->s_name);
+                        return;
+                }
+                break;
+        default:
+                error("swe~: bad arguments to -array");
+                return;
+        }
+        int newsize = (int)((end - start) / step);
+        garray_resize_long(garray, newsize);
+        garray_setsaveit(garray, 0);
+        if (!(garray_getfloatwords(garray, &vecsize, &vec))
+            // if the resize failed, garray_resize reported the error
+            || (vecsize != newsize))
+        {
+                pd_error(x, "resize failed; new size is %d", vecsize);
+                return;
+        }
+        char snam[40];
+        swe_get_planet_name(body, snam);
+        post("%s: %s from %10.2f to %10.2f by steps of %g", arrayname->s_name, snam, start, end, step);
+        if (sine==true) post("plotting sine values between -1 and 1");
+        double i;
+        double xc2[6];
+        char cserr[256];
+        int index = 0;
+        for (i = start; i < end && index < vecsize; i += step)
+        {
+                long iflgret = swe_calc(i, body, x->x_iflag, xc2, cserr);
+                if (iflgret < 0)
+                {
+                        error("%s", cserr);
+                        outlet_bang (x->x_error_out);
+                        break;
+                }
+                else
+                {
+                        if (sine == false)
+                                vec[index++].w_float = xc2[parameter];
+                        else
+                                vec[index++].w_float = sin(xc2[parameter]*3.14159265/90);
+
+                }
+        }
+        garray_redraw(garray);
+        outlet_bang (x->x_error_out);
+}
+
 void swe_tilde_setup(void) {
         swe_tilde_class = class_new(gensym("swe~"),
-                                          (t_newmethod)swe_tilde_new,
-                                          (t_method)swe_tilde_free,
-                                          sizeof(t_swe_tilde), 0, A_GIMME, 0);
+                                    (t_newmethod)swe_tilde_new,
+                                    (t_method)swe_tilde_free,
+                                    sizeof(t_swe_tilde), 0, A_GIMME, 0);
         class_addbang(swe_tilde_class, swe_tilde_bang);
         class_addfloat(swe_tilde_class, swe_tilde_float);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_bj, gensym("-bj"), A_GIMME, 0);
@@ -389,7 +487,19 @@ void swe_tilde_setup(void) {
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_path, gensym("-path"), A_SYMBOL, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_iflag, gensym("-iflag"), A_GIMME, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_audioflag, gensym("-audio"), A_FLOAT, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_array, gensym("-array"), A_GIMME, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_loop, gensym("-loop"), A_GIMME, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_loopoff, gensym("-loopoff"), 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_bj, gensym("bj"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_bj, gensym("j"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_b, gensym("b"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_body, gensym("p"), A_FLOAT, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_step, gensym("step"), A_FLOAT, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_path, gensym("path"), A_SYMBOL, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_iflag, gensym("iflag"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_audioflag, gensym("audio"), A_FLOAT, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_array, gensym("array"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_loop, gensym("loop"), A_GIMME, 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_loopoff, gensym("loopoff"), 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_dsp, gensym("dsp"), 0);
 }
