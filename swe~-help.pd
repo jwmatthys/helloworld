@@ -1,79 +1,184 @@
-#N canvas 413 80 891 508 10;
-#X msg 19 16 bang;
-#X text 230 79 gregorian;
-#X msg 97 43 -bj "23524352.23432";
-#X msg 109 18 -bj 1235;
-#X msg 31 267 -path /home/jwmatthys/Downloads;
-#X floatatom 26 208 8 0 0 0 - - -, f 8;
-#X floatatom 100 209 8 0 0 0 - - -, f 8;
-#X floatatom 178 210 8 0 0 0 - - -, f 8;
-#X msg 6 107 0.1;
-#X msg 129 78 -b 1974 6 27;
-#X text 29 230 long;
-#X text 105 228 lat;
-#X text 183 230 dist;
-#X floatatom 249 209 8 0 0 0 - - -, f 8;
-#X text 242 228 julian date;
-#X text 143 153 <-- number is celestial body;
-#X text 9 89 advance;
-#X text 257 43 julian (can be float or;
-#X text 263 60 symbol in quotes);
-#X text 261 269 path to ephemera datafiles;
-#X msg 487 45 -audio \$1;
-#X obj 487 23 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#N canvas 401 149 800 600 10;
+#X obj 19 11 cnv 15 760 24 empty empty swe~_v0.6 20 12 0 18 -49178
+-262144 0;
+#X obj 19 39 cnv 15 760 550 empty empty empty 20 12 0 14 -162280 -66577
+0;
+#X text 32 48 Swiss Ephemeris is a function package of;
+#X text 32 69 astronomical calculations that serves the;
+#X text 32 90 needs of astrologers \, archaeoastronomers \,;
+#X text 32 111 and \, depending on the purpose \, also the;
+#X text 32 132 needs of astronomers. It includes long-term;
+#X text 32 153 ephemerides for the Sun \, the Moon \, the;
+#X text 32 174 planets \, more than 300 \, 0 asteroids \,;
+#X text 32 195 historically relevant fixed stars and some;
+#X text 32 216 "hypothetical objects.";
+#X text 32 247 ftp://ftp.astro.ch/pub/swisseph;
+#X obj 31 278 cnv 15 360 260 empty empty empty 20 12 0 14 -262144 -66577
+0;
+#N canvas 1 80 557 281 signal 0;
+#X obj 332 64 inlet~;
+#N canvas 1 80 450 250 (subpatch) 0;
+#X array signal 100 float 2;
+#X coords 0 1 100 -1 200 70 1 0 0;
+#X restore 101 101 graph;
+#X obj 84 23 loadbang;
+#X msg 84 48 \; pd dsp 1;
+#X obj 399 62 metro 100;
+#X obj 399 40 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#N canvas 0 22 450 278 (subpatch) 0;
-#X array array1 365 float 0;
-#X coords 0 1 364 -1 200 140 1 0 0;
-#X restore 46 302 graph;
-#X msg 510 114 -b 0 0 0;
-#X obj 385 369 dac~;
-#X obj 387 328 *~ 0.2;
-#X msg 355 114 -p 0 \, -b 1974 6 27;
-#X msg 491 252 -iflag HELCTR;
-#X text 233 120 comment;
-#X text 368 10 comment;
-#X text 452 232 see swephprg.pdf p 11 for flags;
-#X msg 438 179 -loop "2442225.5" \, -p 1 \, -step 0.2 \, -audio 1;
-#X msg 496 279 -iflag DEFAULT;
-#X msg 582 114 -b 2017 11 10;
-#X msg 436 153 -loop "1721027.5" "2458067" 0.5 \, -p 2 \, -audio 1
-;
-#X obj 42 151 swe~ 5;
-#X msg 428 88 -p 5;
-#X text 434 203 if no end date \, loop will be 365242 days (1000 yrs)
-;
-#X msg 701 125 -loopoff;
-#X msg 159 119 -step 0.1;
-#X obj 342 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 331 127 tabwrite~ signal;
+#X connect 0 0 6 0;
+#X connect 2 0 3 0;
+#X connect 2 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 4 0;
+#X coords 0 -1 1 1 202 72 2 100 100;
+#X restore 39 451 pd signal;
+#X obj 48 345 nbx 6 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 157 345 nbx 6 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 108 390 nbx 6 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 206 390 nbx 6 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 2.44223e+06 256;
+#X text 203 409 yr (Julian);
+#X text 45 364 Longitude;
+#X text 153 364 Distance;
+#X text 105 409 Latitude;
+#X obj 310 338 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X msg 239 14 -b 0 0 0;
-#X msg 504 357 -array array1 "2440225.5" "2443225.5" sin;
-#X connect 0 0 35 0;
-#X connect 2 0 35 0;
-#X connect 3 0 35 0;
-#X connect 4 0 35 0;
-#X connect 8 0 35 0;
-#X connect 9 0 35 0;
-#X connect 20 0 35 0;
-#X connect 21 0 20 0;
-#X connect 23 0 35 0;
-#X connect 25 0 24 0;
-#X connect 25 0 24 1;
-#X connect 26 0 35 0;
-#X connect 27 0 35 0;
-#X connect 31 0 35 0;
-#X connect 32 0 35 0;
-#X connect 33 0 35 0;
-#X connect 34 0 35 0;
-#X connect 35 0 25 0;
-#X connect 35 1 5 0;
-#X connect 35 2 6 0;
-#X connect 35 3 7 0;
-#X connect 35 4 13 0;
-#X connect 35 5 40 0;
-#X connect 36 0 35 0;
-#X connect 38 0 35 0;
-#X connect 39 0 35 0;
-#X connect 41 0 35 0;
-#X connect 42 0 35 0;
+#X text 287 357 bang on;
+#X text 287 373 finish;
+#X obj 40 286 r msgs;
+#X obj 407 70 cnv 15 350 500 empty empty Messages 20 12 0 14 -262144
+-66577 0;
+#X obj 30 551 cnv 15 360 20 empty empty empty 20 12 0 14 -262144 -66577
+0;
+#X text 33 554 * www.astro.com/swisseph/swephprg.htm \, sec 2.2;
+#X text 97 293 creation argument is planet number*;
+#X msg 417 173 b 1974 6 27;
+#X text 520 129 set Julian date;
+#X msg 417 129 j "2442225.5";
+#X text 431 151 (use quotes for full accuracy);
+#X text 512 173 set Gregorian date;
+#X msg 417 204 path /home/pi/ephem;
+#X text 563 204 set path;
+#N canvas 1 80 450 257 path-info 0;
+#X text 40 26 swe~ includes ephemera files for a large selection;
+#X text 40 47 of astronomical bodies for a wide time span \, but;
+#X text 40 68 sometimes additional ephemera files need to be;
+#X text 40 89 downloaded. Check the console for messages about;
+#X text 40 110 missing ephemera files \, which can be downloaded from
+;
+#X text 40 131 ftp://ftp.astro.ch/pub/swisseph/ephe/;
+#X text 40 191 Use;
+#X msg 82 191 path /my/path;
+#X text 188 191 to set the path to your;
+#X text 40 212 ephemera files.;
+#X restore 633 204 pd path-info;
+#X text 488 240 fixed amount (in days) to increment;
+#X text 475 264 time \, for audio or array calculations;
+#X msg 417 298 iflag DEFAULT;
+#X text 524 298 set optional calculation flags;
+#N canvas 1 80 450 300 iflag-info 0;
+#X obj 134 187 text define -k iflags;
+#A set JPLEPH : use JPL ephemeris \; SWIEPH : use SWISSEPH ephemeris
+\, default \; MOSEPH : use Moshier ephemeris \; \; HELCTR : return
+heliocentric position \; TRUEPOS : return true positions \, not apparent
+\; J2000 : no precession \, i.e. give J2000 equinox \; NONUT : no nutation
+\, i.e. mean equinox of date \; SPEED3 : speed from 3 positions (do
+not use it \, SPEED is faster and preciser.) \; SPEED : high precision
+speed (analyt. comp.) \; NOGDEFL : turn off gravitational deflection
+\; NOABERR : turn off 'annual' aberration of light \; ASTROMETRIC :
+astrometric positions \; EQUATORIAL : equatorial positions are wanted
+\; XYZ : cartesian \, not polar \, coordinates \; RADIANS : coordinates
+in radians \, not degrees \; BARYCTR : barycentric positions \; TOPOCTR
+: topocentric positions \; SIDEREAL : sidereal positions \; ICRS :
+ICRS (DE406 reference frame) \; DPSIDEPS_1980 : reproduce JPL Horizons
+1962 - today to 0.002 arcsec. \; JPLHOR : DPSIDEPS_1980 \; JPLHOR_APPROX
+: approximate JPL Horizons 1962 - today \;;
+#X text 30 55 iflags change the way swe calculates values;
+#X text 30 85 click below or visit;
+#X text 20 105 http://www.astro.com/swisseph/swephprg.htm#_Toc471829060
+;
+#X restore 644 323 pd iflag-info;
+#N canvas 1 80 450 147 planets 0;
+#X obj 119 91 text define -k planets;
+#A set planet numbers for the -p parameter \; \; SE_ECL_NUT -1 \; \;
+SE_SUN 0 \; SE_MOON 1 \; SE_MERCURY 2 \; SE_VENUS 3 \; SE_MARS 4 \;
+SE_JUPITER 5 \; SE_SATURN 6 \; SE_URANUS 7 \; SE_NEPTUNE 8 \; SE_PLUTO
+9 \; SE_MEAN_NODE 10 \; SE_TRUE_NODE 11 \; SE_MEAN_APOG 12 \; SE_OSCU_APOG
+13 \; SE_EARTH 14 \; SE_CHIRON 15 \; SE_PHOLUS 16 \; SE_CERES 17 \;
+SE_PALLAS 18 \; SE_JUNO 19 \; SE_VESTA 20 \; SE_INTP_APOG 21 \; SE_INTP_PERG
+22 \; SE_NPLANETS 23 \; \; For asteroids \, add 10000 \; SE_VARUNA
+30000 \; \; SE_COMET_OFFSET 1000 \; \; /* Hamburger or Uranian "planets"
+*/ \; SE_CUPIDO 40 \; SE_HADES 41 \; SE_ZEUS 42 \; SE_KRONOS 43 \;
+SE_APOLLON 44 \; SE_ADMETOS 45 \; SE_VULKANUS 46 \; SE_POSEIDON 47
+\; /* other fictitious bodies */ \; SE_ISIS 48 \; SE_NIBIRU 49 \; SE_HARRINGTON
+50 \; SE_NEPTUNE_LEVERRIER 51 \; SE_NEPTUNE_ADAMS 52 \; SE_PLUTO_LOWELL
+53 \; SE_PLUTO_PICKERING 54 \; SE_VULCAN 55 \; SE_WHITE_MOON 56 \;
+SE_PROSERPINA 57 \; SE_WALDEMATH 58 \; \; SE_FIXSTAR -10 \;;
+#X text 27 48 http://www.astro.com/swisseph/swephprg.htm#_Toc471829059
+;
+#X text 27 25 click below for planet numbers or visit;
+#X restore 623 100 pd planets;
+#X obj 417 335 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 417 359 audio \$1;
+#X text 491 359 calculate values at audio rate \,;
+#X text 490 379 incrementing by step size;
+#X msg 417 401 loop;
+#X msg 462 402 loopoff;
+#X text 525 402 audio looping;
+#N canvas 1 80 450 286 looping 0;
+#X text 45 70 Define audio signal as loop between two dates.;
+#X text 45 104 Arguments;
+#X text 65 128 start date (Julian) in quotes for full accuracy;
+#X text 65 150 end date (Julian) in quotes for full accuracy;
+#X text 65 175 optional: step size;
+#X text 65 221 After defining loop \, you must send;
+#X msg 310 220 audio 1;
+#X text 65 244 to start audio.;
+#X obj 47 47 s msgs;
+#X msg 47 21 p 0 \, loop "2442225" "2443225" 10;
+#X connect 9 0 8 0;
+#X restore 633 403 pd looping;
+#X msg 417 429 array;
+#N canvas 1 80 450 300 array 0;
+#X obj 36 53 s msgs;
+#X text 45 103 Resize and fill a Pd array with calculated values.;
+#X text 45 133 Arguments;
+#X text 65 156 name of Pd array;
+#X text 65 178 start date (Julian) in quotes for full accuracy;
+#X text 65 200 end date (Julian) in quotes for full accuracy;
+#X text 65 224 long \, lat \, dist \, or sin*;
+#X text 45 267 *sin maps values on sin resulting in range -1 to 1;
+#X msg 36 28 p 5 \, step 1 \, array myarray "2442225" "2444225" sin
+;
+#X connect 8 0 0 0;
+#X restore 473 429 pd array;
+#N canvas 0 50 450 250 (subpatch) 0;
+#X array myarray 2000 float 0;
+#X coords 0 1 1999 -1 300 80 1 0 0;
+#X restore 421 474 graph;
+#X obj 350 246 s msgs;
+#X obj 40 310 swe~ 1, f 39;
+#X msg 417 239 step 0.5;
+#X msg 417 100 p 5;
+#X text 454 101 set planet to Jupiter;
+#X connect 25 0 56 0;
+#X connect 30 0 55 0;
+#X connect 32 0 55 0;
+#X connect 35 0 55 0;
+#X connect 40 0 55 0;
+#X connect 44 0 45 0;
+#X connect 45 0 55 0;
+#X connect 56 0 13 0;
+#X connect 56 1 14 0;
+#X connect 56 2 16 0;
+#X connect 56 3 15 0;
+#X connect 56 4 17 0;
+#X connect 56 5 22 0;
+#X connect 57 0 55 0;
+#X connect 58 0 55 0;

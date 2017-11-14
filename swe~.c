@@ -3,7 +3,7 @@
 #include "swephexp.h"   /* this includes  "sweodef.h" */
 #include <regex.h>
 
-#define VERSION "v0.6-beta"
+#define VERSION "v0.6"
 #define UNUSED(x) (void)(x)
 typedef enum { false, true } bool;
 
@@ -192,7 +192,7 @@ void swe_tilde_loop(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
                 x->x_loop = true;
                 break;
         case 0:
-                x->x_loop = true;
+                x->x_loop = false;
                 break;
         default:
                 error("too many arguments to -loop");
