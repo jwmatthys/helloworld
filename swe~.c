@@ -146,6 +146,7 @@ void swe_tilde_bang(t_swe_tilde *x)
 {
         double x2[6];
         char serr[256];
+        char date_symbol[20];
         long iflgret = swe_calc(x->x_jul_date, x->x_body, x->x_iflag, x2, serr);
         if (iflgret < 0)
         {
@@ -157,7 +158,9 @@ void swe_tilde_bang(t_swe_tilde *x)
                 outlet_float (x->x_longitude_out, x2[0]);
                 outlet_float (x->x_latitude_out, x2[1]);
                 outlet_float (x->x_distance_out, x2[2]);
-                outlet_float (x->x_date_out, x->x_jul_date);
+                //outlet_float (x->x_date_out, x->x_jul_date);
+                sprintf(date_symbol,"%10.4f",x->x_jul_date);
+                outlet_symbol (x->x_date_out, gensym(date_symbol));
         }
 }
 
@@ -213,7 +216,9 @@ void swe_tilde_bj(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
         x->x_jul_date = atom2double(argv,0);
         x->x_loop_val = x->x_jul_date;
         post ("Set date to %10.4f", x->x_jul_date);
-        outlet_float (x->x_date_out, x->x_jul_date);
+        char date_symbol[20];
+        sprintf(date_symbol,"%10.4f",x->x_jul_date);
+        outlet_symbol (x->x_date_out, gensym(date_symbol));
 }
 
 void swe_tilde_b(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
@@ -226,7 +231,9 @@ void swe_tilde_b(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
         x->x_jul_date = swe_julday(y,m,d,h,SE_GREG_CAL);
         x->x_loop_val = x->x_jul_date;
         post ("Set %d.%d.%d-%f to Julian date %10.4f", y, m, d, h, x->x_jul_date);
-        outlet_float (x->x_date_out, x->x_jul_date);
+        char date_symbol[20];
+        sprintf(date_symbol,"%10.4f",x->x_jul_date);
+        outlet_symbol (x->x_date_out, gensym(date_symbol));
 }
 
 void swe_tilde_path(t_swe_tilde *x, t_symbol *s)
@@ -472,6 +479,15 @@ void swe_tilde_array (t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
         outlet_bang (x->x_error_out);
 }
 
+void swe_tilde_topo (t_swe_tilde *x, t_float lat, t_float lon, t_float alt)
+{
+  post ("Resetting all iflags");
+  swe_set_topo ((double)lon, (double)lat, (double)alt);
+  post ("Computing topocentric positions for:\n\t%g degrees latitude\n\t%g degrees longitude\n\t%g meters above sea level",lat,lon,alt);
+  post ("reset iflags to DEFAULT to disable");
+  x->x_iflag = SEFLG_TOPOCTR;
+}
+
 void swe_tilde_setup(void) {
         swe_tilde_class = class_new(gensym("swe~"),
                                     (t_newmethod)swe_tilde_new,
@@ -490,6 +506,7 @@ void swe_tilde_setup(void) {
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_array, gensym("-array"), A_GIMME, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_loop, gensym("-loop"), A_GIMME, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_loopoff, gensym("-loopoff"), 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_topo, gensym("-topo"), A_FLOAT, A_FLOAT, A_FLOAT, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_bj, gensym("bj"), A_GIMME, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_bj, gensym("j"), A_GIMME, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_b, gensym("b"), A_GIMME, 0);
@@ -501,5 +518,6 @@ void swe_tilde_setup(void) {
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_array, gensym("array"), A_GIMME, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_loop, gensym("loop"), A_GIMME, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_loopoff, gensym("loopoff"), 0);
+        class_addmethod(swe_tilde_class, (t_method)swe_tilde_topo, gensym("topo"), A_FLOAT, A_FLOAT, A_FLOAT, 0);
         class_addmethod(swe_tilde_class, (t_method)swe_tilde_dsp, gensym("dsp"), 0);
 }
