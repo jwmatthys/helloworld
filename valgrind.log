@@ -1,0 +1,618 @@
+==19680== Memcheck, a memory error detector
+==19680== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==19680== Using Valgrind-3.12.0 and LibVEX; rerun with -h for copyright info
+==19680== Command: pd
+==19680== Parent PID: 15843
+==19680== 
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+--19680-- Warning: DWARF2 CFI reader: unhandled DW_OP_ opcode 0x13
+==19680== Invalid write of size 1
+==19680==    at 0x5DF6549: __vsprintf_chk (vsprintf_chk.c:84)
+==19680==    by 0x5DF649C: __sprintf_chk (sprintf_chk.c:31)
+==19680==    by 0x9DAB7C4: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB850: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==  Address 0x6b46387 is 0 bytes after a block of size 7 alloc'd
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAB79C: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB850: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680== 
+==19680== Invalid read of size 1
+==19680==    at 0x5D1E49F: ____strtod_l_internal (strtod_l.c:774)
+==19680==    by 0x9DAB7CE: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB850: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==  Address 0x6b46387 is 0 bytes after a block of size 7 alloc'd
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAB79C: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB850: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680== 
+==19680== Invalid read of size 1
+==19680==    at 0x5D1E255: ____strtod_l_internal (strtod_l.c:829)
+==19680==    by 0x9DAB7CE: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB850: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==  Address 0x6b46387 is 0 bytes after a block of size 7 alloc'd
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAB79C: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB850: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680== 
+==19680== Invalid write of size 1
+==19680==    at 0x5DF6549: __vsprintf_chk (vsprintf_chk.c:84)
+==19680==    by 0x5DF649C: __sprintf_chk (sprintf_chk.c:31)
+==19680==    by 0x9DAB7C4: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB85F: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==  Address 0xa3e73e7 is 0 bytes after a block of size 7 alloc'd
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAB79C: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB85F: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680== 
+==19680== Invalid read of size 1
+==19680==    at 0x5D1E49F: ____strtod_l_internal (strtod_l.c:774)
+==19680==    by 0x9DAB7CE: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB85F: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==  Address 0xa3e73e7 is 0 bytes after a block of size 7 alloc'd
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAB79C: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB85F: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680== 
+==19680== Invalid read of size 1
+==19680==    at 0x5D1E255: ____strtod_l_internal (strtod_l.c:829)
+==19680==    by 0x9DAB7CE: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB85F: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==  Address 0xa3e73e7 is 0 bytes after a block of size 7 alloc'd
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAB79C: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB85F: swe_tilde_loop (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680== 
+==19680== Invalid write of size 8
+==19680==    at 0x9DAB462: swe_tilde_perform (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x14CE5C: dsp_tick (d_ugen.c:369)
+==19680==    by 0x1C9E06: sched_tick (m_sched.c:422)
+==19680==    by 0x1C9E06: m_pollingscheduler (m_sched.c:517)
+==19680==    by 0x1C9E06: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Address 0xa059040 is 0 bytes inside a block of size 3,528,000 free'd
+==19680==    at 0x4C2FD4F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==    by 0x1C9EB1: m_pollingscheduler (m_sched.c:541)
+==19680==    by 0x1C9EB1: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Block was alloc'd at
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAA6C9: swe_tilde_new (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C33AD: pd_typedmess (m_class.c:893)
+==19680==    by 0x1C3477: new_anything (m_class.c:783)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A458E: canvas_objtext (g_text.c:94)
+==19680==    by 0x1A458E: canvas_obj (g_text.c:191)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1C096A: binbuf_evalfile (m_binbuf.c:1485)
+==19680==    by 0x1C0A84: glob_evalfile (m_binbuf.c:1509)
+==19680==    by 0x1C335C: pd_typedmess (m_class.c:964)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680== 
+==19680== Invalid write of size 8
+==19680==    at 0x9DAB247: swe_tilde_perform (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x14CE5C: dsp_tick (d_ugen.c:369)
+==19680==    by 0x1C9E06: sched_tick (m_sched.c:422)
+==19680==    by 0x1C9E06: m_pollingscheduler (m_sched.c:517)
+==19680==    by 0x1C9E06: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Address 0xa059048 is 8 bytes inside a block of size 3,528,000 free'd
+==19680==    at 0x4C2FD4F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==    by 0x1C9EB1: m_pollingscheduler (m_sched.c:541)
+==19680==    by 0x1C9EB1: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Block was alloc'd at
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAA6C9: swe_tilde_new (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C33AD: pd_typedmess (m_class.c:893)
+==19680==    by 0x1C3477: new_anything (m_class.c:783)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A458E: canvas_objtext (g_text.c:94)
+==19680==    by 0x1A458E: canvas_obj (g_text.c:191)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1C096A: binbuf_evalfile (m_binbuf.c:1485)
+==19680==    by 0x1C0A84: glob_evalfile (m_binbuf.c:1509)
+==19680==    by 0x1C335C: pd_typedmess (m_class.c:964)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680== 
+==19680== Invalid write of size 8
+==19680==    at 0x9DAB59A: swe_tilde_perform (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x14CE5C: dsp_tick (d_ugen.c:369)
+==19680==    by 0x1C9E06: sched_tick (m_sched.c:422)
+==19680==    by 0x1C9E06: m_pollingscheduler (m_sched.c:517)
+==19680==    by 0x1C9E06: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Address 0xa059050 is 16 bytes inside a block of size 3,528,000 free'd
+==19680==    at 0x4C2FD4F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==    by 0x1C9EB1: m_pollingscheduler (m_sched.c:541)
+==19680==    by 0x1C9EB1: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Block was alloc'd at
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAA6C9: swe_tilde_new (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C33AD: pd_typedmess (m_class.c:893)
+==19680==    by 0x1C3477: new_anything (m_class.c:783)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A458E: canvas_objtext (g_text.c:94)
+==19680==    by 0x1A458E: canvas_obj (g_text.c:191)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1C096A: binbuf_evalfile (m_binbuf.c:1485)
+==19680==    by 0x1C0A84: glob_evalfile (m_binbuf.c:1509)
+==19680==    by 0x1C335C: pd_typedmess (m_class.c:964)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680== 
+==19680== Invalid write of size 8
+==19680==    at 0x9DAB526: swe_tilde_perform (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x14CE5C: dsp_tick (d_ugen.c:369)
+==19680==    by 0x1C9E06: sched_tick (m_sched.c:422)
+==19680==    by 0x1C9E06: m_pollingscheduler (m_sched.c:517)
+==19680==    by 0x1C9E06: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Address 0xa059058 is 24 bytes inside a block of size 3,528,000 free'd
+==19680==    at 0x4C2FD4F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==    by 0x1C9EB1: m_pollingscheduler (m_sched.c:541)
+==19680==    by 0x1C9EB1: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Block was alloc'd at
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAA6C9: swe_tilde_new (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C33AD: pd_typedmess (m_class.c:893)
+==19680==    by 0x1C3477: new_anything (m_class.c:783)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A458E: canvas_objtext (g_text.c:94)
+==19680==    by 0x1A458E: canvas_obj (g_text.c:191)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1C096A: binbuf_evalfile (m_binbuf.c:1485)
+==19680==    by 0x1C0A84: glob_evalfile (m_binbuf.c:1509)
+==19680==    by 0x1C335C: pd_typedmess (m_class.c:964)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680== 
+==19680== Invalid write of size 1
+==19680==    at 0x5DF6549: __vsprintf_chk (vsprintf_chk.c:84)
+==19680==    by 0x5DF649C: __sprintf_chk (sprintf_chk.c:31)
+==19680==    by 0x9DAB7C4: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB982: swe_tilde_bj (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==  Address 0xaf68b79 is 0 bytes after a block of size 9 alloc'd
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAB79C: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB982: swe_tilde_bj (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680== 
+==19680== Invalid read of size 1
+==19680==    at 0x5D1FC1F: ____strtod_l_internal (strtod_l.c:844)
+==19680==    by 0x9DAB7CE: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB982: swe_tilde_bj (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==  Address 0xaf68b79 is 0 bytes after a block of size 9 alloc'd
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAB79C: atom2double (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB982: swe_tilde_bj (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680== 
+==19680== Invalid free() / delete / delete[] / realloc()
+==19680==    at 0x4C2FD4F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DABA4F: swe_tilde_bj (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==    by 0x1D27D1: sys_pollgui (s_inter.c:902)
+==19680==  Address 0xa059040 is 0 bytes inside a block of size 3,528,000 free'd
+==19680==    at 0x4C2FD4F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==    by 0x1C9EB1: m_pollingscheduler (m_sched.c:541)
+==19680==    by 0x1C9EB1: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Block was alloc'd at
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAA6C9: swe_tilde_new (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C33AD: pd_typedmess (m_class.c:893)
+==19680==    by 0x1C3477: new_anything (m_class.c:783)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A458E: canvas_objtext (g_text.c:94)
+==19680==    by 0x1A458E: canvas_obj (g_text.c:191)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1C096A: binbuf_evalfile (m_binbuf.c:1485)
+==19680==    by 0x1C0A84: glob_evalfile (m_binbuf.c:1509)
+==19680==    by 0x1C335C: pd_typedmess (m_class.c:964)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680== 
+==19680== Invalid free() / delete / delete[] / realloc()
+==19680==    at 0x4C2FD4F: realloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x9DAAEFB: swe_tilde_step (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1C6519: outlet_anything (m_obj.c:422)
+==19680==    by 0x1BD3EC: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1A3FC6: message_float (g_text.c:351)
+==19680==    by 0x1A3FC6: message_click (g_text.c:426)
+==19680==    by 0x1A3FC6: text_click (g_text.c:1135)
+==19680==    by 0x1700B4: gobj_click (g_editor.c:148)
+==19680==    by 0x1700B4: canvas_doclick (g_editor.c:1332)
+==19680==    by 0x1C3375: pd_typedmess (m_class.c:960)
+==19680==    by 0x1BD725: binbuf_eval (m_binbuf.c:773)
+==19680==    by 0x1D16B5: socketreceiver_read (s_inter.c:603)
+==19680==    by 0x1D03B8: sys_domicrosleep.constprop.3 (s_inter.c:230)
+==19680==  Address 0xa059040 is 0 bytes inside a block of size 552 free'd
+==19680==    at 0x4C2ED5B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x5D4CF6C: __fopen_internal (iofopen.c:90)
+==19680==    by 0x9DFB328: swi_fopen (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DFE65E: sweph (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9E05B0A: main_planet (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9E0C6B5: swecalc (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9E0F2F4: swe_calc (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB4D0: swe_tilde_perform (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x14CE5C: dsp_tick (d_ugen.c:369)
+==19680==    by 0x1C9E06: sched_tick (m_sched.c:422)
+==19680==    by 0x1C9E06: m_pollingscheduler (m_sched.c:517)
+==19680==    by 0x1C9E06: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680==  Block was alloc'd at
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x5D4CEEC: __fopen_internal (iofopen.c:69)
+==19680==    by 0x9DFB328: swi_fopen (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DFE65E: sweph (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9E05B0A: main_planet (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9E0C6B5: swecalc (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9E0F2F4: swe_calc (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB4D0: swe_tilde_perform (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x14CE5C: dsp_tick (d_ugen.c:369)
+==19680==    by 0x1C9E06: sched_tick (m_sched.c:422)
+==19680==    by 0x1C9E06: m_pollingscheduler (m_sched.c:517)
+==19680==    by 0x1C9E06: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+==19680== 
+
+valgrind: m_mallocfree.c:303 (get_bszB_as_is): Assertion 'bszB_lo == bszB_hi' failed.
+valgrind: Heap block lo/hi size mismatch: lo = 624, hi = 4601295607775100928.
+This is probably caused by your program erroneously writing past the
+end of a heap block and corrupting heap metadata.  If you fix any
+invalid writes reported by Memcheck, this assertion failure will
+probably go away.  Please try that before reporting this as a bug.
+
+
+host stacktrace:
+==19680==    at 0x38089E4A: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19680==    by 0x38089F64: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19680==    by 0x3808A0FA: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19680==    by 0x380981DA: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19680==    by 0x380526EF: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19680==    by 0x380528CB: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19680==    by 0x38052A6A: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19680==    by 0x380E25B3: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+==19680==    by 0x380F18B0: ??? (in /usr/lib/valgrind/memcheck-amd64-linux)
+
+sched status:
+  running_tid=1
+
+Thread 1: status = VgTs_Runnable (lwpid 19680)
+==19680==    at 0x4C2DB2F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==19680==    by 0x5D4CEEC: __fopen_internal (iofopen.c:69)
+==19680==    by 0x9DFB328: swi_fopen (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DFE65E: sweph (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9E05B0A: main_planet (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9E0C6B5: swecalc (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9E0F2F4: swe_calc (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x9DAB4D0: swe_tilde_perform (in /home/jwmatthys/Audio/swisseph/swe~.pd_linux)
+==19680==    by 0x14CE5C: dsp_tick (d_ugen.c:369)
+==19680==    by 0x1C9E06: sched_tick (m_sched.c:422)
+==19680==    by 0x1C9E06: m_pollingscheduler (m_sched.c:517)
+==19680==    by 0x1C9E06: m_mainloop (m_sched.c:596)
+==19680==    by 0x5CFE3F0: (below main) (libc-start.c:291)
+
+
+Note: see also the FAQ in the source distribution.
+It contains workarounds to several common problems.
+In particular, if Valgrind aborted or crashed after
+identifying problems in your program, there's a good chance
+that fixing those problems will prevent Valgrind aborting or
+crashing, especially if it happened in m_mallocfree.c.
+
+If that doesn't help, please report this bug to: www.valgrind.org
+
+In the bug report, send all the above text, the valgrind
+version, and what OS and version you are using.  Thanks.
+

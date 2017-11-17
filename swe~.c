@@ -3,7 +3,7 @@
 #include "swephexp.h"   /* this includes  "sweodef.h" */
 #include <regex.h>
 
-#define VERSION "v0.65"
+#define VERSION "v0.7"
 #define UNUSED(x) (void)(x)
 typedef enum { false, true } bool;
 
@@ -15,15 +15,20 @@ typedef struct _swe_tilde {
         double x_jul_date;
         double x_loop_start;
         double x_loop_end;
-        double x_loop_val;
-        t_float x_step;
+        double x_loop_date;
+        double *x_loop_data;
+        long x_loop_size;
+        long x_loop_index;
         long x_body;
-        bool x_dsp_flag;
         bool x_loop;
+        bool x_loop_filled;
+        t_float x_step;
+        bool x_dsp_flag;
         long x_iflag;
         t_outlet* x_longitude_out, *x_latitude_out, *x_distance_out, *x_date_out, *x_error_out;
         t_outlet* x_signal_out;
 } t_swe_tilde;
+void swe_tilde_loopoff(t_swe_tilde *x);
 
 void *swe_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
@@ -65,8 +70,12 @@ void *swe_tilde_new(t_symbol *s, int argc, t_atom *argv)
         x->x_jul_date = 0;
         x->x_loop_start = 0;
         x->x_loop_end = 0;
-        x->x_loop_val = 0;
+        x->x_loop_date = 0;
+        x->x_loop_index = 0;
         x->x_loop = false;
+        x->x_loop_filled = false;
+        x->x_loop_size = x->x_sample_rate * 10;
+        x->x_loop_data = malloc(sizeof(double)*x->x_loop_size); //allocate 10 sec
         return (void *)x;
 }
 
@@ -77,6 +86,7 @@ void swe_tilde_free(t_swe_tilde *x)
         outlet_free(x->x_distance_out);
         outlet_free(x->x_date_out);
         outlet_free(x->x_error_out);
+        if (x->x_loop_data) free(x->x_loop_data);
         //outlet_free(x->x_signal_out);
         swe_close();
 }
@@ -92,16 +102,39 @@ static t_int *swe_tilde_perform(t_int *w)
         t_sample outval = 0;
         while (n--)
         {
-                if (x->x_dsp_flag == false) outval = 0;
+                if (x->x_dsp_flag == false || iflgret < 0) outval = 0;
                 else
                 {
-                        iflgret = swe_calc(x->x_loop_val, x->x_body, x->x_iflag, x2, serr);
-                        if (iflgret < 0) x->x_dsp_flag = false;
-                        t_float val = (t_float)sin (3.14159265 * x2[0] / 180);
-                        //post ("val: %f", val);
-                        outval = (t_sample)val;
-                        x->x_loop_val += x->x_step;
-                        if (x->x_loop == true && x->x_loop_val > x->x_loop_end) x->x_loop_val = x->x_loop_start;
+                        if (x->x_loop_filled != true)
+                        {
+                                iflgret = swe_calc(x->x_loop_date, x->x_body, x->x_iflag + SEFLG_RADIANS, x2, serr);
+                                if (iflgret < 0)
+                                {
+                                        x->x_dsp_flag = false;
+                                        break;
+                                }
+                                outval = (t_sample) sin (x2[0]);
+                                //post ("val: %f", val);
+                                //outval = (t_sample)val;
+                                x->x_loop_date += x->x_step;
+                                if (x->x_loop == true)
+                                {
+                                        //x->x_loop_index++;
+                                        x->x_loop_data[x->x_loop_index++] = outval;
+                                        if (x->x_loop_date >= x->x_loop_end)
+                                        {
+                                                x->x_loop_date = x->x_loop_start;
+                                                x->x_loop_filled = true;
+                                                //x->x_loop_index = 0;
+                                                //post ("x_loop_data filled at size = %d", x->x_loop_index);
+                                        }
+                                }
+                        }
+                        else
+                        {
+                                outval = (t_sample)x->x_loop_data[x->x_loop_index++];
+                                if (x->x_loop_index >= x->x_loop_size) x->x_loop_index = 0;
+                        }
                 }
                 *out++ = outval;
         }
@@ -174,6 +207,7 @@ void swe_tilde_float(t_swe_tilde *x, t_float f)
 void swe_tilde_step(t_swe_tilde *x, t_float f)
 {
         x->x_step = f;
+        swe_tilde_loopoff(x);
         if (x->x_step == 0 ) error("step cannot be 0");
         post ("Set step to %g", x->x_step);
 }
@@ -190,7 +224,7 @@ void swe_tilde_loop(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
                 x->x_loop_end = atom2double(argv,1);
         case 1:
                 x->x_loop_start = atom2double(argv,0);
-                x->x_loop_val = x->x_loop_start;
+                x->x_loop_date = x->x_loop_start;
                 x->x_loop_end = x->x_loop_start + 365242.2; // 1000 years
                 x->x_loop = true;
                 break;
@@ -201,12 +235,20 @@ void swe_tilde_loop(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
                 error("too many arguments to -loop");
         }
         post ("Looping from %10.2f to %10.2f by %g step", x->x_loop_start, x->x_loop_end, x->x_step);
+        x->x_loop_index = 0;
+        x->x_loop_filled = false;
+        x->x_loop_size = (long)(x->x_loop_end - x->x_loop_start) / x->x_step;
+        x->x_loop_size++;
+        //post("allocating %d values for x->x_loop_data",x->x_loop_size);
+        realloc (x->x_loop_data, sizeof(double) * x->x_loop_size);
 }
 
 void swe_tilde_loopoff(t_swe_tilde *x)
 {
+        if (x->x_loop == true) post("looping disabled");
         x->x_loop = false;
-        post("looping disabled");
+        x->x_loop_filled = false;
+        x->x_dsp_flag = false;
 }
 
 void swe_tilde_bj(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
@@ -214,7 +256,8 @@ void swe_tilde_bj(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
         UNUSED(s);
         UNUSED(argc);
         x->x_jul_date = atom2double(argv,0);
-        x->x_loop_val = x->x_jul_date;
+        x->x_loop_date = x->x_jul_date;
+        swe_tilde_loopoff(x);
         post ("Set date to %10.4f", x->x_jul_date);
         char date_symbol[20];
         sprintf(date_symbol,"%10.4f",x->x_jul_date);
@@ -229,7 +272,8 @@ void swe_tilde_b(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
         long d = (argc > 2 && argv[2].a_type == A_FLOAT) ? argv[2].a_w.w_float : 1;
         double h = (argc > 3 && argv[3].a_type == A_FLOAT) ? argv[3].a_w.w_float : 0;
         x->x_jul_date = swe_julday(y,m,d,h,SE_GREG_CAL);
-        x->x_loop_val = x->x_jul_date;
+        x->x_loop_date = x->x_jul_date;
+        swe_tilde_loopoff(x);
         post ("Set %d.%d.%d-%f to Julian date %10.4f", y, m, d, h, x->x_jul_date);
         char date_symbol[20];
         sprintf(date_symbol,"%10.4f",x->x_jul_date);
@@ -246,6 +290,7 @@ void swe_tilde_path(t_swe_tilde *x, t_symbol *s)
 void swe_tilde_body(t_swe_tilde *x, t_float f)
 {
         x->x_body = (long)f;
+        x->x_loop_filled = false;
         char snam[40];
         swe_get_planet_name(x->x_body, snam);
         post ("Celestial body: %s", snam);
@@ -261,6 +306,7 @@ void swe_tilde_iflag(t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
 {
         UNUSED(s);
         x->x_iflag = 0;
+        x->x_loop_filled = false;
         unsigned short i;
         for (i = 0; i < argc; i++)
         {
@@ -481,11 +527,11 @@ void swe_tilde_array (t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
 
 void swe_tilde_topo (t_swe_tilde *x, t_float lat, t_float lon, t_float alt)
 {
-  post ("Resetting all iflags");
-  swe_set_topo ((double)lon, (double)lat, (double)alt);
-  post ("Computing topocentric positions for:\n\t%g degrees latitude\n\t%g degrees longitude\n\t%g meters above sea level",lat,lon,alt);
-  post ("reset iflags to DEFAULT to disable");
-  x->x_iflag = SEFLG_TOPOCTR;
+        post ("Resetting all iflags");
+        swe_set_topo ((double)lon, (double)lat, (double)alt);
+        post ("Computing topocentric positions for:\n\t%g degrees latitude\n\t%g degrees longitude\n\t%g meters above sea level",lat,lon,alt);
+        post ("reset iflags to DEFAULT to disable");
+        x->x_iflag = SEFLG_TOPOCTR;
 }
 
 void swe_tilde_setup(void) {
