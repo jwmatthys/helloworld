@@ -49,7 +49,7 @@ From left to right, the outlets provide:
 
     [signal] [longitude] [latitude] [distance] [Julian yr] [Error bang]
 
-The Julian year is output as a signal to maintain accuracy. It can be converted back into a float value with a [float] object.
+The Julian year is output as a symbol to maintain accuracy. It can be converted back into a float value with a [float] object.
 
 ### Stepping forward in time ###
 
