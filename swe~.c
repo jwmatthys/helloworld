@@ -3,7 +3,7 @@
 #include "swephexp.h"   /* this includes  "sweodef.h" */
 #include <regex.h>
 
-#define VERSION "v0.6"
+#define VERSION "v0.65"
 #define UNUSED(x) (void)(x)
 typedef enum { false, true } bool;
 
