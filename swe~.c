@@ -505,7 +505,7 @@ void swe_tilde_array (t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
         int index = 0;
         for (i = start; i < end && index < vecsize; i += step)
         {
-                long iflgret = swe_calc(i, body, x->x_iflag, xc2, cserr);
+                long iflgret = swe_calc(i, body, x->x_iflag + (sine==true)?SEFLG_RADIANS:0, xc2, cserr);
                 if (iflgret < 0)
                 {
                         error("%s", cserr);
@@ -517,7 +517,7 @@ void swe_tilde_array (t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
                         if (sine == false)
                                 vec[index++].w_float = xc2[parameter];
                         else
-                                vec[index++].w_float = sin(xc2[parameter]*3.14159265/90);
+                                vec[index++].w_float = sin(xc2[parameter]);
 
                 }
         }
