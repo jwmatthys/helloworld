@@ -64,7 +64,7 @@ void *swe_tilde_new(t_symbol *s, int argc, t_atom *argv)
         x->x_latitude_out = outlet_new(&x->x_obj, &s_float);
         x->x_distance_out = outlet_new(&x->x_obj, &s_float);
         x->x_date_out = outlet_new(&x->x_obj, &s_float);
-        x->x_error_out = outlet_new(&x->x_obj, &s_bang);
+        x->x_error_out = outlet_new(&x->x_obj, &s_symbol);
         x->x_iflag = 0;
         x->x_step = 1.0; // one day
         x->x_jul_date = 0;
@@ -141,7 +141,7 @@ static t_int *swe_tilde_perform(t_int *w)
         if (iflgret < 0)
         {
                 error("%s", serr);
-                outlet_bang (x->x_error_out);
+                outlet_symbol (x->x_error_out, gensym(serr));
 
         }
         return (w+4);
@@ -184,7 +184,7 @@ void swe_tilde_bang(t_swe_tilde *x)
         if (iflgret < 0)
         {
                 error("%s", serr);
-                outlet_bang (x->x_error_out);
+                outlet_symbol (x->x_error_out, gensym(serr));
         }
         else
         {
@@ -509,7 +509,7 @@ void swe_tilde_array (t_swe_tilde *x, t_symbol *s, short argc, t_atom *argv)
                 if (iflgret < 0)
                 {
                         error("%s", cserr);
-                        outlet_bang (x->x_error_out);
+                        outlet_symbol (x->x_error_out, gensym(cserr));
                         break;
                 }
                 else
